@@ -35,7 +35,7 @@ public interface TransferenciaRepository
         }
         if (nomeOperadorTransacao != null){
             specs = specs.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.equal(root.get("nomeOperadorTransacao").get("nome"), nomeOperadorTransacao));
+                    criteriaBuilder.equal(root.get("nomeOperadorTransacao"), nomeOperadorTransacao));
         }
         if (dataInicial != null){
             specs = specs.and((root, query, criteriaBuilder) ->

@@ -22,6 +22,9 @@ public class TransferenciaService {
             LocalDate dataInicial,
             LocalDate dataFinal
     ) {
+        if (contaId != null){
+            contaService.findById(contaId);
+        }
         return transferenciaRepository.findAllTransferenciasByCriteriasOrNone(
                 contaId,
                 nomeOperadorTransacao,
@@ -32,7 +35,7 @@ public class TransferenciaService {
 
     @Transactional
     public Transferencia save(TransferenciaDto transferenciaDto){
-        var conta = contaService. findById(transferenciaDto.getContaId());
+        var conta = contaService.findById(transferenciaDto.getContaId());
         var transferencia = Transferencia.builder()
                 .tipo(transferenciaDto.getTipo())
                 .conta(conta)
