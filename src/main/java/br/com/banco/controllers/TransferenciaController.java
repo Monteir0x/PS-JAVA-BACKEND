@@ -1,0 +1,37 @@
+package br.com.banco.controllers;
+
+import br.com.banco.entities.Transferencia;
+import br.com.banco.services.TransferenciaService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@RestController
+@RequestMapping("/transferencias")
+@RequiredArgsConstructor
+public class TransferenciaController {
+    private final TransferenciaService transferenciaService;
+
+    @GetMapping
+    public ResponseEntity<List<Transferencia>> allByParamsOrNone(
+            @RequestParam(value = "contaId", required = false) Long contaId,
+            @RequestParam(value = "nomeOperadorTransacao", required = false) String nomeOperadorTransacao,
+            @RequestParam(value = "dataInicial", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dataInicial,
+            @RequestParam(value = "dataFinal", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dataFinal
+            ){
+        var transferencias = transferenciaService.listAllByParamsOrNone(
+                contaId,
+                nomeOperadorTransacao,
+                dataInicial,
+                dataFinal
+        );
+        return ResponseEntity.ok(transferencias);
+    }
+}
