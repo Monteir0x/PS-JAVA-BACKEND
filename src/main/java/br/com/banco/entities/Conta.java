@@ -1,9 +1,6 @@
 package br.com.banco.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -12,6 +9,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @ToString
+@Builder
 @Entity
 public class Conta {
     @Id
