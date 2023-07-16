@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/transferencias")
+@RequestMapping("/api/v1/transferencias")
 @RequiredArgsConstructor
 public class TransferenciaController {
     private final TransferenciaService transferenciaService;

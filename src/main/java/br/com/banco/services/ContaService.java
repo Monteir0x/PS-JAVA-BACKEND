@@ -43,4 +43,29 @@ public class ContaService {
                 .build();
         return contaRepository.save(contaAfterSaque);
     }
+
+    public Conta transferenciaEntrada(Long id, Double valor) {
+        Conta conta = findById(id);
+        BigDecimal saldo = conta.getSaldo().add(BigDecimal.valueOf(valor));
+        Conta contaAfterTransferenciaEntrada = Conta.builder()
+                .id(conta.getId())
+                .nomeResponsavel(conta.getNomeResponsavel())
+                .saldo(saldo)
+                .build();
+        return contaRepository.save(contaAfterTransferenciaEntrada);
+    }
+
+    public Conta transferenciaSaida(Long id, Double valor) {
+        Conta conta = findById(id);
+        if (conta.getSaldo().compareTo(BigDecimal.valueOf(valor)) < 0) {
+            throw new ContaSaldoInsuficienteException("Saldo insuficiente");
+        }
+
+        Conta contaAfterTransferenciaSaida = Conta.builder()
+                .id(conta.getId())
+                .nomeResponsavel(conta.getNomeResponsavel())
+                .saldo(conta.getSaldo().subtract(BigDecimal.valueOf(valor)))
+                .build();
+        return contaRepository.save(contaAfterTransferenciaSaida);
+    }
 }
