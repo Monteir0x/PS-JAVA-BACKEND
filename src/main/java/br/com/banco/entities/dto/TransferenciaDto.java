@@ -14,4 +14,5 @@ public class TransferenciaDto {
     private TipoTransacao tipo;
     private String nomeOperadorTransacao;
     private Long contaId;
+    private BigDecimal saldo;
 }

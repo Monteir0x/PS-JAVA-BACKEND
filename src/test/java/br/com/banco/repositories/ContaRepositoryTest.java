@@ -1,7 +1,7 @@
 package br.com.banco.repositories;
 
 import br.com.banco.entities.Conta;
-import br.com.banco.exceptions.ContaNotFoundException;
+import br.com.banco.exceptions.ContaNaoEncontradaException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ class ContaRepositoryTest {
         underTest.save(conta);
         // when
         Conta expected = underTest.findById(id)
-                .orElseThrow(() -> new ContaNotFoundException("Conta não encontrada"));
+                .orElseThrow(() -> new ContaNaoEncontradaException("Conta não encontrada"));
         // then
         assertThat(expected).isInstanceOf(Conta.class);
     }
@@ -46,9 +46,9 @@ class ContaRepositoryTest {
                 .build();
         underTest.save(conta);
         // when and then
-        assertThatExceptionOfType(ContaNotFoundException.class)
+        assertThatExceptionOfType(ContaNaoEncontradaException.class)
                 .isThrownBy(() -> underTest.findById(id)
-                        .orElseThrow(() -> new ContaNotFoundException("Conta não encontrada")
+                        .orElseThrow(() -> new ContaNaoEncontradaException("Conta não encontrada")
                                 )).withMessage("Conta não encontrada")
                 .withNoCause();
     }

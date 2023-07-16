@@ -42,6 +42,7 @@ public class Transferencia {
     @JoinColumn(name = "conta_id", referencedColumnName = "id_conta")
     private Conta conta;
 
+
     //#region Equals & HashCode
     @Override
     public boolean equals(Object o) {
