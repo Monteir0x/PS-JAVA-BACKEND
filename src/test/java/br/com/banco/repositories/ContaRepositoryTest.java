@@ -1,7 +1,7 @@
 package br.com.banco.repositories;
 
 import br.com.banco.entities.Conta;
-import br.com.banco.exceptions.ContaNaoEncontradaException;
+import br.com.banco.exceptions.conta.ContaNaoEncontradaException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

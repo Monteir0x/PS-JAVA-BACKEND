@@ -1,8 +1,8 @@
 package br.com.banco.services;
 
 import br.com.banco.entities.Conta;
-import br.com.banco.exceptions.ContaNaoEncontradaException;
-import br.com.banco.exceptions.ContaSaldoInsuficienteException;
+import br.com.banco.exceptions.conta.ContaNaoEncontradaException;
+import br.com.banco.exceptions.conta.ContaSaldoInsuficienteException;
 import br.com.banco.repositories.ContaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

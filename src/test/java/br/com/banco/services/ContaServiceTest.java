@@ -1,7 +1,7 @@
 package br.com.banco.services;
 
 import br.com.banco.entities.Conta;
-import br.com.banco.exceptions.ContaSaldoInsuficienteException;
+import br.com.banco.exceptions.conta.ContaSaldoInsuficienteException;
 import br.com.banco.repositories.ContaRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

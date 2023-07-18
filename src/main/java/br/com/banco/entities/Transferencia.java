@@ -1,6 +1,5 @@
 package br.com.banco.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 

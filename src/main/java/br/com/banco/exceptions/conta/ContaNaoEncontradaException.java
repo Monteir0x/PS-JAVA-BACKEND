@@ -1,4 +1,4 @@
-package br.com.banco.exceptions;
+package br.com.banco.exceptions.conta;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
