@@ -20,6 +20,7 @@ public class Conta {
 
     @Column(name = "nome_responsavel", length = 50, nullable = false)
     private String nomeResponsavel;
+    @Column(precision = 20, scale = 2)
     private BigDecimal saldo;
 
     //#region Equals & HashCode

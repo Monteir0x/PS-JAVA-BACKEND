@@ -20,13 +20,11 @@ public class TransferenciaController {
 
     @GetMapping
     public ResponseEntity<List<Transferencia>> allByParamsOrNone(
-            @RequestParam(value = "contaId", required = false) Long contaId,
             @RequestParam(value = "nomeOperadorTransacao", required = false) String nomeOperadorTransacao,
             @RequestParam(value = "dataInicial", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dataInicial,
             @RequestParam(value = "dataFinal", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dataFinal
             ){
         var transferencias = transferenciaService.listAllByParamsOrNone(
-                contaId,
                 nomeOperadorTransacao,
                 dataInicial,
                 dataFinal

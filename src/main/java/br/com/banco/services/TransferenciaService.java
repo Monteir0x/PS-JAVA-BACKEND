@@ -17,16 +17,12 @@ public class TransferenciaService {
     private final ContaService contaService;
 
     public List<Transferencia> listAllByParamsOrNone(
-            Long contaId,
+
             String nomeOperadorTransacao,
             LocalDate dataInicial,
             LocalDate dataFinal
     ) {
-        if (contaId != null){
-            contaService.findById(contaId);
-        }
         return transferenciaRepository.findAllTransferenciasByCriteriasOrNone(
-                contaId,
                 nomeOperadorTransacao,
                 dataInicial,
                 dataFinal

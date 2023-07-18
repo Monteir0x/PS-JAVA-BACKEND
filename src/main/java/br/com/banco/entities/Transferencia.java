@@ -1,5 +1,6 @@
 package br.com.banco.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -19,6 +20,10 @@ public class Transferencia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING,
+            pattern = "yyyy-MM-dd'T'HH:mm:ss.XXX"
+    )
     @Column(
             name = "data_transferencia",
             columnDefinition = "TIMESTAMP WITH TIME ZONE",

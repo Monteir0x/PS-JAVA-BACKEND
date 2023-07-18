@@ -14,32 +14,27 @@ public interface TransferenciaRepository
         extends JpaRepository<Transferencia, Long>, JpaSpecificationExecutor<Transferencia> {
 
     default List<Transferencia> findAllTransferenciasByCriteriasOrNone(
-            Long contaId,
             String nomeOperadorTransacao,
             LocalDate dataInicial,
             LocalDate dataFinal
     ) {
-        return searchCriteria(contaId, nomeOperadorTransacao, dataInicial, dataFinal);
+        return searchCriteria(nomeOperadorTransacao, dataInicial, dataFinal);
     }
 
     private List<Transferencia> searchCriteria(
-            Long contaId,
             String nomeOperadorTransacao,
             LocalDate dataInicial,
             LocalDate dataFinal
     ) {
         Specification<Transferencia> specs = Specification.where(null);
-        if (contaId != null){
-            specs = specs.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.equal(root.get("conta").get("id"), contaId));
-        }
         if (nomeOperadorTransacao != null){
             specs = specs.and((root, query, criteriaBuilder) ->
                     criteriaBuilder.equal(root.get("nomeOperadorTransacao"), nomeOperadorTransacao));
         }
         if (dataInicial != null){
+            var dataInicialOffSet = dataInicial.atTime(LocalTime.MIN).atOffset(ZoneOffset.UTC);
             specs = specs.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.greaterThanOrEqualTo(root.get("dataTransferencia"), dataInicial));
+                    criteriaBuilder.greaterThanOrEqualTo(root.get("dataTransferencia"), dataInicialOffSet));
         }
         if (dataInicial != null && dataFinal != null){
             var dataInicialOffSet = dataInicial.atTime(LocalTime.MIN).atOffset(ZoneOffset.UTC);
