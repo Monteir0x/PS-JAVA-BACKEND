@@ -6,6 +6,7 @@ import br.com.banco.exceptions.ContaSaldoInsuficienteException;
 import br.com.banco.repositories.ContaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -19,7 +20,8 @@ public class ContaService {
                 .orElseThrow(() -> new ContaNaoEncontradaException("Conta não encontrada"));
     }
 
-    public Conta deposito(Long id, Double valor) {
+    @Transactional
+    public void deposito(Long id, Double valor) {
         Conta conta = findById(id);
         BigDecimal saldo = conta.getSaldo().add(BigDecimal.valueOf(valor));
         Conta contaAfterDeposit = Conta.builder()
@@ -27,10 +29,11 @@ public class ContaService {
                 .nomeResponsavel(conta.getNomeResponsavel())
                 .saldo(saldo)
                 .build();
-        return contaRepository.save(contaAfterDeposit);
+        contaRepository.save(contaAfterDeposit);
     }
 
-    public Conta saque(Long id, Double valor) {
+    @Transactional
+    public void saque(Long id, Double valor) {
         Conta conta = findById(id);
         if (conta.getSaldo().compareTo(BigDecimal.valueOf(valor)) < 0) {
             throw new ContaSaldoInsuficienteException("Saldo insuficiente");
@@ -41,10 +44,11 @@ public class ContaService {
                 .nomeResponsavel(conta.getNomeResponsavel())
                 .saldo(conta.getSaldo().subtract(BigDecimal.valueOf(valor)))
                 .build();
-        return contaRepository.save(contaAfterSaque);
+        contaRepository.save(contaAfterSaque);
     }
 
-    public Conta transferenciaEntrada(Long id, Double valor) {
+    @Transactional
+    public void transferenciaEntrada(Long id, Double valor) {
         Conta conta = findById(id);
         BigDecimal saldo = conta.getSaldo().add(BigDecimal.valueOf(valor));
         Conta contaAfterTransferenciaEntrada = Conta.builder()
@@ -52,10 +56,11 @@ public class ContaService {
                 .nomeResponsavel(conta.getNomeResponsavel())
                 .saldo(saldo)
                 .build();
-        return contaRepository.save(contaAfterTransferenciaEntrada);
+        contaRepository.save(contaAfterTransferenciaEntrada);
     }
 
-    public Conta transferenciaSaida(Long id, Double valor) {
+    @Transactional
+    public void transferenciaSaida(Long id, Double valor) {
         Conta conta = findById(id);
         if (conta.getSaldo().compareTo(BigDecimal.valueOf(valor)) < 0) {
             throw new ContaSaldoInsuficienteException("Saldo insuficiente");
@@ -66,6 +71,6 @@ public class ContaService {
                 .nomeResponsavel(conta.getNomeResponsavel())
                 .saldo(conta.getSaldo().subtract(BigDecimal.valueOf(valor)))
                 .build();
-        return contaRepository.save(contaAfterTransferenciaSaida);
+        contaRepository.save(contaAfterTransferenciaSaida);
     }
 }
